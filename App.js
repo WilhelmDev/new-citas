@@ -1,20 +1,68 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Button, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context'
+import Form from './src/components/Form';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    const [modalVisible, setModalVisible] = useState(false)
+
+
+    const newDateHandler = () => {
+    setModalVisible(!modalVisible)
+    }
+
+    return (
+        <SafeAreaProvider>
+            <View >
+
+                <Text style={styles.title}>
+                    Administrador de Citas
+                    <Text style={styles.tittleBold}> Veterinaria</Text>
+                </Text>
+
+                <Pressable style={styles.btnNewDate}
+                onPress={() => setModalVisible(true)}
+                >
+                    <Text style={styles.btnTextNewDate}>
+                        Nueva Cita
+                    </Text>
+                </Pressable>
+
+                <Form newDateHandler={newDateHandler} modalVisible={modalVisible}/>
+
+            </View>
+        </SafeAreaProvider>
+    )}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#F3F4F6',
+    flex: 1
   },
+  title: {
+    textAlign: 'center',
+    fontSize: 30,
+    marginTop: 35,
+    color: '#374151',
+    fontWeight: 'bold'
+  },
+  tittleBold: {
+    fontWeight: '900',
+    color: '#6D28D9',
+  },
+  btnNewDate: {
+    backgroundColor: '#6D28D9',
+    padding: 15,
+    marginHorizontal: 20,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  btnTextNewDate: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '900',
+    textTransform: 'uppercase'
+  }
 });
