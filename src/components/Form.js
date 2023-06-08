@@ -16,14 +16,19 @@ export default function Form({modalHandler, modalVisible }) {
     const handleDate = (event, selectedDate) => {
         if (event.type === 'dissmised') {
             setShowDate(false)
-            setDate('')
+            return
         }
         if(date !== selectedDate) {
             const currentDate = selectedDate
             setShowDate(false)
             setDate(currentDate)
+            return
         }
         return
+    }
+
+    const handleDating = () => {
+        console.log('presionaste en enviar cita')
     }
 
     return (
@@ -106,6 +111,14 @@ export default function Form({modalHandler, modalVisible }) {
 
                     </View>
 
+                    <Pressable style={styles.btnSubmit}
+                    onPress={() => handleDating()}
+                    >
+                        <Text style={styles.btnTextSubmit}>
+                            Agregar Paciente
+                        </Text>
+                    </Pressable>
+
                 </ScrollView>
             </SafeAreaProvider>
 
@@ -115,14 +128,14 @@ export default function Form({modalHandler, modalVisible }) {
 
 const styles = StyleSheet.create({
     container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     backgroundColor: '#6D28D9',
-  },
+    },
     contentBox: {
         backgroundColor: '#6D28D9',
         // flex:1,
-        paddingTop: 35
+        paddingVertical: 15
     },
     title: {
         fontSize:30,
@@ -180,7 +193,6 @@ const styles = StyleSheet.create({
         padding:12,
         marginHorizontal:30,
         borderRadius:10,
-
     },
     btnTextCancel:{
         color: '#fff',
@@ -188,5 +200,19 @@ const styles = StyleSheet.create({
         fontWeight:'900',
         fontSize:15,
         textTransform:'uppercase'
+    },
+    btnSubmit:{
+        marginHorizontal:30,
+        marginVertical:40,
+        padding:15,
+        backgroundColor:'#06b6d4',
+        borderRadius: 10,
+    },
+    btnTextSubmit:{
+        textAlign:'center',
+        textTransform:'uppercase',
+        color:'#fff',
+        fontWeight:'700',
+        fontSize:18
     }
 })

@@ -14,6 +14,7 @@ export default function App() {
 
     return (
         <SafeAreaProvider>
+          <StatusBar  translucent={true}/>
             <View >
 
                 <Text style={styles.title}>
