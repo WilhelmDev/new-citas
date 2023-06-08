@@ -1,13 +1,27 @@
 import React, { useState } from 'react'
 import { Modal, Pressable, Text, StyleSheet, View, SafeAreaView, TextInput, ScrollView} from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { dateFormatter } from '../helpers';
 
 export default function Form({newDateHandler, modalVisible }) {
     const [namePatient, setNamePatient] = useState('')
     const [nameOwner, setNameOwner] = useState('')
+    const [date, setDate] = useState('')
+    const [showDate, setShowDate] = useState(false)
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [symtomps, setSymtomps] = useState('')
+
+    const handleDate = (event, selectedDate) => {
+        
+        if(date !== selectedDate) {
+            const currentDate = selectedDate
+            setShowDate(false)
+            setDate(currentDate)
+        }
+        return
+    }
 
     return (
         <Modal animationType='slide' visible={modalVisible} statusBarTranslucent={true}>
@@ -57,6 +71,24 @@ export default function Form({newDateHandler, modalVisible }) {
 
                     <View style={styles.contentForm}>
 
+
+                        <Text style={styles.label}
+                        >Fecha de Alta</Text>
+                        
+                        <Pressable style={styles.btnNewDate}
+                            onPress={() => setShowDate(true)}>
+                                <Text style={styles.dateText}
+                                >{date ? dateFormatter(date) : 'presione Para definir fecha'}</Text>
+                        </Pressable>
+
+                        {showDate && (
+                        <DateTimePicker value={date ? date : new Date()} onChange={handleDate} display='spinner'
+                        minimumDate={new Date()}/>)}
+
+                    </View>
+
+                    <View style={styles.contentForm}>
+
                         <Text style={styles.label}
                         >Sintomas</Text>
                         <TextInput style={styles.input} value={symtomps} onChangeText={setSymtomps}
@@ -93,7 +125,7 @@ const styles = StyleSheet.create({
         fontWeight: '800'
     },
     contentForm: {
-        marginTop:30,
+        marginTop:25,
         marginHorizontal:30,
     },
     label: {
@@ -106,5 +138,30 @@ const styles = StyleSheet.create({
         backgroundColor:'#FFF',
         padding:12,
         borderRadius:10
-    }
+    },
+    dateText: {
+        textAlign:'center',
+        textAlignVertical:'center',
+        textTransform: 'capitalize',
+        color:'#6D28D9' ,
+        paddingVertical:12,
+        fontSize: 20,
+        fontWeight:'600',
+        borderWidth: 2,
+        borderRadius: 10,
+        borderColor: '#fff'
+    },
+    btnNewDate: {
+        backgroundColor: '#fff',
+        marginHorizontal: 0,
+        marginTop: 10,
+        borderRadius: 10,
+      },
+      btnTextNewDate: {
+        textAlign: 'center',
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: '900',
+        textTransform: 'uppercase'
+      }
 })
