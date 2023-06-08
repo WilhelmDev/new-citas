@@ -8,7 +8,7 @@ export default function App() {
     const [modalVisible, setModalVisible] = useState(false)
 
 
-    const newDateHandler = () => {
+    const modalHandler = () => {
     setModalVisible(!modalVisible)
     }
 
@@ -29,7 +29,7 @@ export default function App() {
                     </Text>
                 </Pressable>
 
-                <Form newDateHandler={newDateHandler} modalVisible={modalVisible}/>
+                <Form modalHandler={modalHandler} modalVisible={modalVisible}/>
 
             </View>
         </SafeAreaProvider>

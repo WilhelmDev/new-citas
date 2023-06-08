@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { dateFormatter } from '../helpers';
 
-export default function Form({newDateHandler, modalVisible }) {
+export default function Form({modalHandler, modalVisible }) {
     const [namePatient, setNamePatient] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [date, setDate] = useState('')
@@ -14,7 +14,10 @@ export default function Form({newDateHandler, modalVisible }) {
     const [symtomps, setSymtomps] = useState('')
 
     const handleDate = (event, selectedDate) => {
-        
+        if (event.type === 'dissmised') {
+            setShowDate(false)
+            setDate('')
+        }
         if(date !== selectedDate) {
             const currentDate = selectedDate
             setShowDate(false)
@@ -32,6 +35,14 @@ export default function Form({newDateHandler, modalVisible }) {
                     <Text style={styles.title}>Nueva 
                         <Text style={styles.titleBold}> Cita</Text>
                     </Text>
+
+                    <Pressable style={styles.btnCancel}
+                    onLongPress={() => modalHandler()}
+                    >
+                        <Text style={styles.btnTextCancel}>
+                            X Cancelar
+                        </Text>
+                    </Pressable>
 
                     <View style={styles.contentForm}>
 
@@ -70,7 +81,6 @@ export default function Form({newDateHandler, modalVisible }) {
                     </View>
 
                     <View style={styles.contentForm}>
-
 
                         <Text style={styles.label}
                         >Fecha de Alta</Text>
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
   },
     contentBox: {
         backgroundColor: '#6D28D9',
-        flex:1,
+        // flex:1,
         paddingTop: 35
     },
     title: {
@@ -156,12 +166,27 @@ const styles = StyleSheet.create({
         marginHorizontal: 0,
         marginTop: 10,
         borderRadius: 10,
-      },
-      btnTextNewDate: {
+    },
+    btnTextNewDate: {
         textAlign: 'center',
         color: '#fff',
         fontSize: 18,
         fontWeight: '900',
         textTransform: 'uppercase'
-      }
+    },
+    btnCancel: {
+        backgroundColor:'#5720ad',
+        marginTop:20,
+        padding:12,
+        marginHorizontal:30,
+        borderRadius:10,
+
+    },
+    btnTextCancel:{
+        color: '#fff',
+        textAlign:'center',
+        fontWeight:'900',
+        fontSize:15,
+        textTransform:'uppercase'
+    }
 })
