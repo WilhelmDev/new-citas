@@ -24,8 +24,8 @@ export default function App() {
 
     return (
         <SafeAreaProvider>
-          <StatusBar  translucent={true}/>
-            <View >
+            <StatusBar  translucent={true}/>
+            <View style={styles.container}>
 
                 <Text style={styles.title}>
                     Administrador de Citas
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:24,
         fontWeight:'600'
-        },
+    },
     listStyles:{
         marginTop:40,
         marginHorizontal:25
