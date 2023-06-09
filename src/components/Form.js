@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Modal, Pressable, Text, StyleSheet, View, SafeAreaView, TextInput, ScrollView} from 'react-native'
+import { Modal, Pressable, Text, StyleSheet, View, SafeAreaView, TextInput, ScrollView, Alert} from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { dateFormatter } from '../helpers';
 
-export default function Form({modalHandler, modalVisible }) {
+export default function Form({modalHandler, modalVisible, addNewPatient }) {
     const [namePatient, setNamePatient] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [date, setDate] = useState('')
@@ -28,7 +28,19 @@ export default function Form({modalHandler, modalVisible }) {
     }
 
     const handleDating = () => {
-        console.log('presionaste en enviar cita')
+        //* Validation
+        if ([namePatient, nameOwner, email, date, symtomps].includes('')) {
+            Alert.alert('Error', 'Todos los campos son Obligatorios')
+            return
+        }
+
+        //*Adding patient 
+        const newPatient = {
+            id: Date.now(), namePatient, nameOwner, email, phone, date, symtomps
+        }
+        addNewPatient(newPatient)
+        setNameOwner('');setNamePatient('');setEmail('');setPhone(''), setDate(''), setSymtomps('')
+        return
     }
 
     return (
