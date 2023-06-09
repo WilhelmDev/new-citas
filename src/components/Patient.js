@@ -2,8 +2,13 @@ import React from 'react'
 import {Pressable, StyleSheet, Text, View} from 'react-native'
 import { dateFormatter } from '../helpers'
 
-export default function Patient({item}) {
-    const {namePatient, nameOwner, email, phone, date, symtomps} = item
+export default function Patient({item, modalHandler, editPatient}) {
+    const {namePatient, nameOwner, email, phone, date, symtomps, id} = item
+
+    const editHandler = () => {
+        editPatient(id)
+        modalHandler()
+    }
     
     return (
         <View style={styles.container}>
@@ -19,7 +24,8 @@ export default function Patient({item}) {
 
             <View style={styles.containerButtons}>
 
-                <Pressable style={[styles.btn, styles.btnEdit]}>
+                <Pressable style={[styles.btn, styles.btnEdit]}
+                onPress={ () => editHandler()}>
                     <Text style={styles.btnText}>Editar</Text>
                 </Pressable>
 
@@ -56,7 +62,8 @@ const styles = StyleSheet.create({
     },
     date: {
         color:'#374151',
-        textTransform:'capitalize'
+        textTransform:'capitalize',
+        fontWeight:'600'
     },
     containerButtons:{
         flexDirection: 'row',

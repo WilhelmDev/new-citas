@@ -22,8 +22,12 @@ export default function App() {
 
     }
 
+    const editPatient = (id) => {
+        console.log('editing', id)
+    }
+
     return (
-        <SafeAreaProvider>
+        <SafeAreaProvider style={styles.appContainer}>
             <StatusBar  translucent={true}/>
             <View style={styles.container}>
 
@@ -46,20 +50,24 @@ export default function App() {
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => {
                         return (
-                            <Patient item={item}/>
+                            <Patient item={item} modalHandler={modalHandler} editPatient={editPatient}/>
                         )
                     }}/>}
 
-                <Form modalHandler={modalHandler} modalVisible={modalVisible} addNewPatient={addNewPatient}/>
+                <Form modalHandler={modalHandler} modalVisible={modalVisible}
+                addNewPatient={addNewPatient} />
 
             </View>
         </SafeAreaProvider>
     )}
 
 const styles = StyleSheet.create({
+    appContainer:{
+        marginTop: StatusBar.currentHeight || 0,
+        flex:1
+    },
     container: {
         backgroundColor: '#F3F4F6',
-        flex: 1
     },
     title: {
         textAlign: 'center',
