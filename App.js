@@ -64,7 +64,8 @@ export default function App() {
 const styles = StyleSheet.create({
     appContainer:{
         marginTop: StatusBar.currentHeight || 0,
-        flex:1
+        flex:1,
+        backgroundColor: '#F3F4F6',
     },
     container: {
         backgroundColor: '#F3F4F6',
