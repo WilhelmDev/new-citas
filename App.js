@@ -4,15 +4,21 @@ import { Button, FlatList, Modal, Pressable, StyleSheet, Text, View, ScrollView,
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import Form from './src/components/Form';
 import Patient from './src/components/Patient';
+import PatientData from './src/components/PatientData';
 
 export default function App() {
     const [modalVisible, setModalVisible] = useState(false)
     const [patients, setPatients] = useState([])
     const [patient, setPatient] = useState({})
+    const [modalPatient, setModalPatient] = useState(false)
 
     const modalHandler = () => {
     setModalVisible(!modalVisible)
     }
+
+    const modalDataHandler = () => {
+        setModalPatient(!modalPatient)
+        }
 
     const newDateHandler = () => {
         modalHandler()
@@ -83,12 +89,19 @@ export default function App() {
                         renderItem={({item}) => {
                             return (
                                 <Patient item={item} modalHandler={modalHandler} 
-                                editPatient={editPatient} deletePatient={deletePatient}/>
+                                editPatient={editPatient} deletePatient={deletePatient}
+                                modalDataHandler={modalDataHandler}/>
                                 )
                             }}/>}
 
                 <Form modalHandler={modalHandler} modalVisible={modalVisible}
                 addNewPatient={addNewPatient} patient={patient} editPatients={editPatients}/>
+
+                <Modal animationType='slide' visible={modalPatient} statusBarTranslucent={false}>
+
+                    <PatientData modalDataHandler={modalDataHandler}/>
+
+                </Modal>
 
             </View>
         </>

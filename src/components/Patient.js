@@ -2,7 +2,7 @@ import React from 'react'
 import {Pressable, StyleSheet, Text, View} from 'react-native'
 import { dateFormatter } from '../helpers'
 
-export default function Patient({item, modalHandler, editPatient, deletePatient}) {
+export default function Patient({item, modalHandler, editPatient, deletePatient, modalDataHandler}) {
     const {namePatient, nameOwner, email, phone, date, symtomps, id} = item
 
     const editHandler = () => {
@@ -15,32 +15,34 @@ export default function Patient({item, modalHandler, editPatient, deletePatient}
     }
 
     return (
-        <View style={styles.container}>
+        <Pressable onPress={modalDataHandler}>
+            <View style={styles.container}>
 
-            <Text style={styles.label}
-            >Paciente: </Text>
+                <Text style={styles.label}
+                >Paciente: </Text>
 
-            <Text style={styles.text}
-            >{namePatient}</Text>
+                <Text style={styles.text}
+                >{namePatient}</Text>
 
-            <Text  style={styles.date}
-            >{dateFormatter(date)}</Text>
+                <Text  style={styles.date}
+                >{dateFormatter(date)}</Text>
 
-            <View style={styles.containerButtons}>
+                <View style={styles.containerButtons}>
 
-                <Pressable style={[styles.btn, styles.btnEdit]}
-                onPress={ () => editHandler()}>
-                    <Text style={styles.btnText}>Editar</Text>
-                </Pressable>
+                    <Pressable style={[styles.btn, styles.btnEdit]}
+                    onPress={ () => editHandler()}>
+                        <Text style={styles.btnText}>Editar</Text>
+                    </Pressable>
 
-                <Pressable style={[styles.btn, styles.btnDelete]}
-                onLongPress={deleteHandler}>
-                    <Text style={styles.btnText}>Eliminar</Text>
-                </Pressable>
+                    <Pressable style={[styles.btn, styles.btnDelete]}
+                    onLongPress={deleteHandler}>
+                        <Text style={styles.btnText}>Eliminar</Text>
+                    </Pressable>
+
+                </View>
 
             </View>
-
-        </View>
+        </Pressable>
     )
 }
 
