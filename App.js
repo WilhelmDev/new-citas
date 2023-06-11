@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, Modal, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import Form from './src/components/Form';
 import Patient from './src/components/Patient';
@@ -8,28 +8,45 @@ import Patient from './src/components/Patient';
 export default function App() {
     const [modalVisible, setModalVisible] = useState(false)
     const [patients, setPatients] = useState([])
+    const [patient, setPatient] = useState({})
 
     const modalHandler = () => {
     setModalVisible(!modalVisible)
     }
 
+    const newDateHandler = () => {
+        modalHandler()
+        setPatient({})
+    }
+
     const addNewPatient = (newPatient) => {
       //*addind pattient to state 
-      setPatients([...patients, newPatient])
+        setPatients([...patients, newPatient])
 
-      //*Closing modal
+      //*Closing modal and reset patient object
         setModalVisible(!modalVisible)
+        setPatient({})
 
     }
 
     const editPatient = (id) => {
-        console.log('editing', id)
+        const patientEdit = patients.filter((patient) => patient.id === id)
+        setPatient(patientEdit[0])
+    }
+
+    const editPatients = (newPatient) => {
+        //* create a new array with the new patient
+        const patientsUpdated = patients.map((arrayPatient) => 
+        arrayPatient.id === newPatient.id ? newPatient : arrayPatient)
+        //* set it in the global state
+        setPatients(patientsUpdated)
+        modalHandler()
     }
 
     return (
-        <SafeAreaProvider style={styles.appContainer}>
-            <StatusBar  translucent={true}/>
-            <View style={styles.container}>
+        <>
+            <StatusBar translucent={true}/>
+            <View style={styles.appContainer}>
 
                 <Text style={styles.title}>
                     Administrador de Citas
@@ -37,28 +54,28 @@ export default function App() {
                 </Text>
 
                 <Pressable style={styles.btnNewDate}
-                onPress={() => setModalVisible(true)}
+                onPress={() => newDateHandler()}
                 >
                     <Text style={styles.btnTextNewDate}>
                         Nueva Cita
                     </Text>
                 </Pressable>
 
-                {patients.length === 0
-                    ? <Text style={styles.noPatients}> No hay pacientes aun </Text>
-                    : <FlatList data={patients} style={styles.listStyles}
+                    {patients.length === 0
+                        ? <Text style={styles.noPatients}> No hay pacientes aun </Text>
+                        : <FlatList data={patients} style={styles.listStyles}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => {
-                        return (
-                            <Patient item={item} modalHandler={modalHandler} editPatient={editPatient}/>
-                        )
-                    }}/>}
+                            return (
+                                <Patient item={item} modalHandler={modalHandler} editPatient={editPatient}/>
+                                )
+                            }}/>}
 
                 <Form modalHandler={modalHandler} modalVisible={modalVisible}
-                addNewPatient={addNewPatient} />
+                addNewPatient={addNewPatient} patient={patient} editPatients={editPatients}/>
 
             </View>
-        </SafeAreaProvider>
+        </>
     )}
 
 const styles = StyleSheet.create({
@@ -68,7 +85,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F4F6',
     },
     container: {
-        backgroundColor: '#F3F4F6',
     },
     title: {
         textAlign: 'center',
@@ -103,6 +119,6 @@ const styles = StyleSheet.create({
     },
     listStyles:{
         marginTop:40,
-        marginHorizontal:25
+        marginHorizontal:25,
     }
 });

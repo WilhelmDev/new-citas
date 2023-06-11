@@ -1,17 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Pressable, Text, StyleSheet, View, SafeAreaView, TextInput, ScrollView, Alert} from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { dateFormatter } from '../helpers';
 
-export default function Form({modalHandler, modalVisible, addNewPatient }) {
+export default function Form({modalHandler, modalVisible, addNewPatient, patient, editPatients }) {
     const [namePatient, setNamePatient] = useState('')
+    const [id, setId] = useState('')
     const [nameOwner, setNameOwner] = useState('')
     const [date, setDate] = useState('')
     const [showDate, setShowDate] = useState(false)
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [symtomps, setSymtomps] = useState('')
+
+    //*fill form if is editing a patient
+    useEffect(() => {
+        if (Object.keys(patient).length > 0) {
+            setId(patient.id)
+            setNamePatient(patient.namePatient)
+            setNameOwner(patient.nameOwner)
+            setDate(patient.date)
+            setEmail(patient.email)
+            setPhone(patient.phone)
+            setSymtomps(patient.symtomps)
+            return
+        }
+        setId('')
+        setNamePatient('')
+        setNameOwner('')
+        setDate('')
+        setEmail('')
+        setPhone('')
+        setSymtomps('')
+    },[modalVisible])
 
     const handleDate = (event, selectedDate) => {
         if (event.type === 'dissmised') {
@@ -34,11 +56,22 @@ export default function Form({modalHandler, modalVisible, addNewPatient }) {
             return
         }
 
-        //*Adding patient 
+        //*Verify if the patient exist
         const newPatient = {
-            id: Date.now(), namePatient, nameOwner, email, phone, date, symtomps
+        namePatient, nameOwner, email, phone, date, symtomps
         }
-        addNewPatient(newPatient)
+        if (id) { //*Editing Patient
+            newPatient.id = id
+            editPatients(newPatient)
+            return
+        } else { //*Adding patient 
+
+            newPatient.id = Date.now()
+            addNewPatient(newPatient)
+
+        }        
+
+        //*Reset Form
         setNameOwner('');setNamePatient('');setEmail('');setPhone(''), setDate(''), setSymtomps('')
         return
     }
