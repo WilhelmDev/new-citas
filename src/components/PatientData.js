@@ -1,4 +1,5 @@
 import { Button, SafeAreaView, StyleSheet, Text, View, StatusBar, Pressable } from "react-native";
+import { dateFormatter } from "../helpers";
 
 export default function PatientData({modalDataHandler, patient}) {
     return (
@@ -21,7 +22,40 @@ export default function PatientData({modalDataHandler, patient}) {
                     </Pressable>
                 </View>
 
-                <Text>{patient?.email}</Text>
+                <View style={styles.content}>
+
+                    <View style={styles.itemContent}>
+                        <Text style={styles.label}>Nombre</Text>
+                        <Text style={styles.textContent}>{patient?.namePatient}</Text>
+                    </View>
+
+                    <View style={styles.itemContent}>
+                        <Text style={styles.label}>Propietario</Text>
+                        <Text style={styles.textContent}>{patient?.nameOwner}</Text>
+                    </View>
+
+                    <View style={styles.itemContent}>
+                        <Text style={styles.label}>Email:</Text>
+                        <Text style={styles.textContent}>{patient?.email}</Text>
+                    </View>
+
+                    <View style={styles.itemContent}>
+                        <Text style={styles.label}>Telefono</Text>
+                        <Text style={styles.textContent}>{patient?.phone}</Text>
+                    </View>
+
+                    <View style={styles.itemContent}>
+                        <Text style={styles.label}>Fecha de alta</Text>
+                        <Text style={styles.textContent}>{dateFormatter(patient?.date)}</Text>
+                    </View>
+
+                    <View style={styles.itemContent}>
+                        <Text style={styles.label}>Sintomas</Text>
+                        <Text style={styles.textContent}>{patient?.symtomps}</Text>
+                    </View>
+
+                </View>
+
             </View>
 
         </SafeAreaView>
@@ -52,6 +86,7 @@ const styles = StyleSheet.create({
         padding:12,
         marginHorizontal:30,
         borderRadius:10,
+        marginBottom:30
     },
     btnTextCancel:{
         color: '#fff',
@@ -60,4 +95,31 @@ const styles = StyleSheet.create({
         fontSize:15,
         textTransform:'uppercase'
     },
+    content:{
+        backgroundColor: '#fff',
+        marginHorizontal:30,
+        borderRadius: 10,
+        padding:10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+    },
+    itemContent:{
+        marginBottom:10
+    },
+    label:{
+        textTransform:'uppercase',
+        color:'#374151',
+        fontWeight:'600',
+    },
+    textContent:{
+        fontWeight:'700',
+        fontSize:20,
+        color:'#334155'
+    }
 })
