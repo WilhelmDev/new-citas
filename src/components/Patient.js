@@ -15,7 +15,7 @@ export default function Patient({item, modalHandler, editPatient, deletePatient,
     }
 
     return (
-        <Pressable onPress={modalDataHandler}>
+        <Pressable onPress={() => modalDataHandler(id)}>
             <View style={styles.container}>
 
                 <Text style={styles.label}

@@ -16,7 +16,8 @@ export default function App() {
     setModalVisible(!modalVisible)
     }
 
-    const modalDataHandler = () => {
+    const modalDataHandler = (id) => {
+        editPatient(id)
         setModalPatient(!modalPatient)
         }
 
@@ -99,7 +100,7 @@ export default function App() {
 
                 <Modal animationType='slide' visible={modalPatient} statusBarTranslucent={false}>
 
-                    <PatientData modalDataHandler={modalDataHandler}/>
+                    <PatientData modalDataHandler={modalDataHandler} patient={patient}/>
 
                 </Modal>
 
