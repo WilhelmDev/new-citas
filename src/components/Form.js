@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Pressable, Text, StyleSheet, View, SafeAreaView, TextInput, ScrollView, Alert} from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { Modal, Pressable, Text, StyleSheet, View, SafeAreaView, TextInput, ScrollView, Alert, StatusBar} from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { dateFormatter } from '../helpers';
 
@@ -79,8 +78,8 @@ export default function Form({modalHandler, modalVisible, addNewPatient, patient
     return (
         <Modal animationType='slide' visible={modalVisible} statusBarTranslucent={true}>
 
-            <SafeAreaProvider style={styles.contentBox}>
-                <ScrollView>
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={styles.contentBox}>
 
                     <Text style={styles.title}>{id ? 'Editar' : 'Nueva'} 
                         <Text style={styles.titleBold}> Cita</Text>
@@ -165,7 +164,7 @@ export default function Form({modalHandler, modalVisible, addNewPatient, patient
                     </Pressable>
 
                 </ScrollView>
-            </SafeAreaProvider>
+            </SafeAreaView>
 
         </Modal>
     )
@@ -173,20 +172,17 @@ export default function Form({modalHandler, modalVisible, addNewPatient, patient
 
 const styles = StyleSheet.create({
     container: {
-    // flex: 1,
-    justifyContent: 'center',
+    flex: 1,
     backgroundColor: '#6D28D9',
     },
     contentBox: {
-        backgroundColor: '#6D28D9',
-        // flex:1,
-        paddingVertical: 15
+        marginTop: StatusBar.currentHeight || 0
     },
     title: {
         fontSize:30,
         fontWeight:'600',
         textAlign:'center',
-        marginTop:25,
+        marginTop:5,
         color: '#FFF'
     },
     titleBold: {

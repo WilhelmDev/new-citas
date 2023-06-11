@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, FlatList, Modal, Pressable, StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
+import { Button, FlatList, Modal, Pressable, StyleSheet, Text, View, ScrollView, Alert, SafeAreaView, StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import Form from './src/components/Form';
 import Patient from './src/components/Patient';
@@ -66,9 +65,9 @@ export default function App() {
     }
 
     return (
-        <>
+        <SafeAreaView style={styles.appContainer}>
             <StatusBar translucent={true}/>
-            <View style={styles.appContainer}>
+            <View style={styles.container}>
 
                 <Text style={styles.title}>
                     Administrador de Citas
@@ -105,21 +104,21 @@ export default function App() {
                 </Modal>
 
             </View>
-        </>
+        </SafeAreaView>
     )}
 
 const styles = StyleSheet.create({
     appContainer:{
-        marginTop: StatusBar.currentHeight || 0,
         flex:1,
         backgroundColor: '#F3F4F6',
     },
     container: {
+        marginTop: StatusBar.currentHeight || 0,
     },
     title: {
         textAlign: 'center',
         fontSize: 30,
-        marginTop: 35,
+        marginTop: 10,
         color: '#374151',
         fontWeight: 'bold'
     },
