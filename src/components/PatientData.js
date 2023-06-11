@@ -45,8 +45,8 @@ export default function PatientData({modalDataHandler, patient}) {
                     </View>
 
                     <View style={styles.itemContent}>
-                        <Text style={styles.label}>Fecha de alta</Text>
-                        <Text style={styles.textContent}>{dateFormatter(patient?.date)}</Text>
+                        <Text style={[styles.label, {textTransform:'capitalize'}]}>Fecha de alta</Text>
+                        <Text style={[styles.textContent, {textTransform:'capitalize'}]}>{dateFormatter(patient?.date)}</Text>
                     </View>
 
                     <View style={styles.itemContent}>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         marginHorizontal:30,
         borderRadius: 10,
-        padding:10,
+        padding:20,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
