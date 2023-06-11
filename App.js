@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, FlatList, Modal, Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Button, FlatList, Modal, Pressable, StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import Form from './src/components/Form';
 import Patient from './src/components/Patient';
@@ -43,6 +43,21 @@ export default function App() {
         modalHandler()
     }
 
+    const deletePatient = (id) => {
+        Alert.alert(
+            '¿Deseas eliminar este pacente?',
+            'Un paciente eliminado no se puede recuperar',
+            [
+                {text:'Cancelar'},
+                {text:'Si, Eliminar', onPress: () => {
+                    //* Update Array
+                    const patientsUpdated = patients.filter((arrayItem) => arrayItem.id !== id)
+                    setPatients(patientsUpdated)
+                }}
+            ]
+            )
+    }
+
     return (
         <>
             <StatusBar translucent={true}/>
@@ -67,7 +82,8 @@ export default function App() {
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => {
                             return (
-                                <Patient item={item} modalHandler={modalHandler} editPatient={editPatient}/>
+                                <Patient item={item} modalHandler={modalHandler} 
+                                editPatient={editPatient} deletePatient={deletePatient}/>
                                 )
                             }}/>}
 

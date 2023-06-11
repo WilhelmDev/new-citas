@@ -2,14 +2,18 @@ import React from 'react'
 import {Pressable, StyleSheet, Text, View} from 'react-native'
 import { dateFormatter } from '../helpers'
 
-export default function Patient({item, modalHandler, editPatient}) {
+export default function Patient({item, modalHandler, editPatient, deletePatient}) {
     const {namePatient, nameOwner, email, phone, date, symtomps, id} = item
 
     const editHandler = () => {
         editPatient(id)
         modalHandler()
     }
-    
+
+    const deleteHandler = () => {
+        deletePatient(id)
+    }
+
     return (
         <View style={styles.container}>
 
@@ -29,7 +33,8 @@ export default function Patient({item, modalHandler, editPatient}) {
                     <Text style={styles.btnText}>Editar</Text>
                 </Pressable>
 
-                <Pressable style={[styles.btn, styles.btnDelete]}>
+                <Pressable style={[styles.btn, styles.btnDelete]}
+                onLongPress={deleteHandler}>
                     <Text style={styles.btnText}>Eliminar</Text>
                 </Pressable>
 
