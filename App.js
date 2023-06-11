@@ -98,7 +98,7 @@ export default function App() {
                 <Form modalHandler={modalHandler} modalVisible={modalVisible}
                 addNewPatient={addNewPatient} patient={patient} editPatients={editPatients}/>
 
-                <Modal animationType='slide' visible={modalPatient} statusBarTranslucent={false}>
+                <Modal animationType='slide' visible={modalPatient} statusBarTranslucent={true}>
 
                     <PatientData modalDataHandler={modalDataHandler} patient={patient}/>
 
