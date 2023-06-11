@@ -82,7 +82,7 @@ export default function Form({modalHandler, modalVisible, addNewPatient, patient
             <SafeAreaProvider style={styles.contentBox}>
                 <ScrollView>
 
-                    <Text style={styles.title}>Nueva 
+                    <Text style={styles.title}>{id ? 'Editar' : 'Nueva'} 
                         <Text style={styles.titleBold}> Cita</Text>
                     </Text>
 
@@ -160,7 +160,7 @@ export default function Form({modalHandler, modalVisible, addNewPatient, patient
                     onPress={() => handleDating()}
                     >
                         <Text style={styles.btnTextSubmit}>
-                            Agregar Paciente
+                            {id ? 'Editar paciente' : 'Agregar Paciente'}
                         </Text>
                     </Pressable>
 
